@@ -4,10 +4,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'media.twiliocdn.com',
-        //hostname: '**',
+        hostname: '**',
         port: '',
-        //pathname: 'AC41f9eb05cc84049fbc026ca91b527a81/**',
         pathname: '**',
       },
     ],

@@ -3,7 +3,7 @@ import { Twilio } from 'twilio';
 
 type uris = Array<string>;
 type imageResponse = {
-  uris: uris;
+  uris?: uris;
   message?: string;
 };
 
@@ -12,16 +12,17 @@ export default async function images(
   res: NextApiResponse<imageResponse>
 ) {
   try {
+    const limit = Number(req.query.limit);
     const {
       TWILIO_ACCOUNT_SID: accountSid,
-      TWILIO_ACCOUNT_SID: authToken,
+      TWILIO_AUTH_TOKEN: authToken,
       TWILIO_NUMBER: twilioNumber,
     } = process.env;
 
     const client = new Twilio(accountSid, authToken);
 
     const response = await client.messages.list({
-      limit: 20,
+      limit,
       to: twilioNumber,
     });
 
@@ -33,7 +34,9 @@ export default async function images(
 
     res.status(200).json({ uris: mediaUris });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'internal server error', uris: [] });
+    res.status(500).json({
+      message:
+        'We have encountered an issue when loading photos, please reload or try again later.',
+    });
   }
 }

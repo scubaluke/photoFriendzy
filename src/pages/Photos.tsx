@@ -29,11 +29,12 @@ export default function Photos() {
 
   let images;
   if (data) {
-    images = data.images.map(({ url, message }, i) => (
+    images = data.images.map(({ url, message, from }, i) => (
       <ImageThumbNail
         key={i}
         alt={message}
         srcUrl={`https://api.twilio.com${url}`}
+        from={from}
       />
     ));
   }
@@ -48,7 +49,7 @@ export default function Photos() {
 
   return (
     <>
-      <main className={styles.main}>{images}</main>
+      <main className={styles.imageGrid}>{images}</main>
     </>
   );
 }

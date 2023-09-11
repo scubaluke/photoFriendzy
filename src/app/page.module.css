@@ -7,6 +7,12 @@
   min-height: 100vh;
 }
 
+.imageGrid {
+  display: 'grid';
+  grid-gap: '8px';
+  grid-template-columns: 'repeat(auto-fit, minmax(400px, auto))';
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

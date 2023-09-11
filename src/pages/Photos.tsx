@@ -2,12 +2,19 @@ import { AxiosError } from 'axios';
 import useSWR from 'swr';
 
 import { fetcher } from '@/app/fetcher';
-import { ImageThumbNail } from '@/app/ImageThumbNail';
+import { ImageThumbNail } from '@/components/ImageThumbNail';
 import { Loader } from '@/components/Loader';
 import styles from '@/app/page.module.css';
 
-interface UriResponse {
-  uris: Array<string>;
+interface Image {
+  url: string;
+  from: string;
+  message: string;
+}
+interface ImagesResponse {
+  images: Array<Image>;
+  message: string;
+  from: string;
 }
 interface ErrorResponse {
   message: string;
@@ -16,14 +23,18 @@ interface ErrorResponse {
 export default function Photos() {
   const limit = 100;
   const { data, isValidating, error } = useSWR<
-    UriResponse,
+    ImagesResponse,
     AxiosError<ErrorResponse, unknown>
-  >(`/api/image/uris?limit=${limit}`, fetcher);
+  >(`/api/images?limit=${limit}`, fetcher);
 
   let images;
-  if (data && data.uris) {
-    images = data.uris.map((uri, i) => (
-      <ImageThumbNail key={i} srcUrl={`https://api.twilio.com${uri}`} />
+  if (data) {
+    images = data.images.map(({ url, message }, i) => (
+      <ImageThumbNail
+        key={i}
+        alt={message}
+        srcUrl={`https://api.twilio.com${url}`}
+      />
     ));
   }
 

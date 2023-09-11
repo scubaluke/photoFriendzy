@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Twilio } from 'twilio';
 
-type uris = Array<string>;
-type imageResponse = {
-  uris?: uris;
+type Images = Array<Record<string, string>>;
+interface imageResponse {
+  images?: Images;
   message?: string;
-};
+}
 
 export default async function images(
   req: NextApiRequest,
@@ -26,13 +26,15 @@ export default async function images(
       to: twilioNumber,
     });
 
-    const mediaUris: uris = [];
-    for (const { sid } of response) {
+    const images: Images = [];
+    for (const { sid, body: message, from } of response) {
       const media = await client.messages(sid).media.list();
-      media.forEach(({ uri }) => mediaUris.push(uri.replace('.json', '')));
+      media.forEach(({ uri }) =>
+        images.push({ url: uri.replace('.json', ''), message, from })
+      );
     }
 
-    res.status(200).json({ uris: mediaUris });
+    res.status(200).json({ images });
   } catch (error) {
     res.status(500).json({
       message:

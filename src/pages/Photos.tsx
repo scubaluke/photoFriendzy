@@ -3,6 +3,7 @@ import useSWR from 'swr';
 
 import { fetcher } from '@/app/fetcher';
 import { ImageThumbNail } from '@/app/ImageThumbNail';
+import { Loader } from '@/components/Loader';
 import styles from '@/app/page.module.css';
 
 interface UriResponse {
@@ -13,8 +14,8 @@ interface ErrorResponse {
 }
 
 export default function Photos() {
-  const limit = 50;
-  const { data, error: photoError } = useSWR<
+  const limit = 100;
+  const { data, isValidating, error } = useSWR<
     UriResponse,
     AxiosError<ErrorResponse, unknown>
   >(`/api/image/uris?limit=${limit}`, fetcher);
@@ -26,9 +27,16 @@ export default function Photos() {
     ));
   }
 
+  if (isValidating) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>{error.response?.data.message}</div>;
+  }
+
   return (
     <>
-      {photoError && <div>{photoError.response?.data.message}</div>}
       <main className={styles.main}>{images}</main>
     </>
   );

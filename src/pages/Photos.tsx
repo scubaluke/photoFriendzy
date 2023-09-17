@@ -10,6 +10,8 @@ interface Image {
   url: string;
   from: string;
   message: string;
+  sid: string;
+  accountSid: string;
 }
 interface ImagesResponse {
   images: Array<Image>;
@@ -29,8 +31,10 @@ export default function Photos() {
 
   let images;
   if (data) {
-    images = data.images.map(({ url, message, from }, i) => (
+    images = data.images.map(({ url, message, from, sid, accountSid }, i) => (
       <ImageThumbNail
+        sid={sid}
+        accountSid={accountSid}
         key={i}
         alt={message}
         srcUrl={`https://api.twilio.com${url}`}
@@ -40,7 +44,7 @@ export default function Photos() {
   }
 
   if (isValidating) {
-    return <Loader />;
+    return <Loader loading={isValidating} />;
   }
 
   if (error) {
@@ -49,7 +53,7 @@ export default function Photos() {
 
   return (
     <>
-      <main className={styles.imageGrid}>{images}</main>
+      <main className={styles.imageContainer}>{images}</main>
     </>
   );
 }

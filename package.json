@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generateQr": "ts-node ./generateQrCode/index.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,18 +11,25 @@
   },
   "dependencies": {
     "@types/node": "20.5.7",
+    "@types/npm": "^7.19.0",
+    "@types/qrcode": "^1.5.2",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-loader": "^2.4.5",
     "axios": "^1.5.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "install": "^0.13.0",
     "next": "13.4.19",
+    "qrcode": "^1.5.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-loading": "^2.0.3",
     "swr": "^2.2.2",
     "twilio": "^4.16.0",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
   }
 }

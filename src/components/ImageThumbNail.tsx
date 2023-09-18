@@ -23,9 +23,6 @@ export function ImageThumbNail({
         query: {
           srcUrl,
           alt,
-          from,
-          sid,
-          accountSid,
         },
       }}
     >

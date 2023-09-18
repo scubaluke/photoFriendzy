@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import useSWR from 'swr';
 
+import { ErrorResponse } from '@/app/interfaces.ts';
 import { fetcher } from '@/app/fetcher';
 import { ImageThumbNail } from '@/components/ImageThumbNail';
 import { Loader } from '@/components/Loader';
@@ -17,9 +18,6 @@ interface ImagesResponse {
   images: Array<Image>;
   message: string;
   from: string;
-}
-interface ErrorResponse {
-  message: string;
 }
 
 export default function Photos() {

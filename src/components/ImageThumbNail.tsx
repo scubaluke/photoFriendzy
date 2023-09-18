@@ -6,15 +6,9 @@ import styles from '@/app/page.module.css';
 export function ImageThumbNail({
   srcUrl,
   alt = `Photo from Luke and Bre's wedding!`,
-  from,
-  sid,
-  accountSid,
 }: {
   srcUrl: string;
   alt: string;
-  from: string;
-  sid: string;
-  accountSid: string;
 }) {
   return (
     <Link

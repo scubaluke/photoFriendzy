@@ -29,14 +29,11 @@ export default function Photos() {
 
   let images;
   if (data) {
-    images = data.images.map(({ url, message, from, sid, accountSid }, i) => (
+    images = data.images.map(({ url, message }, i) => (
       <ImageThumbNail
-        sid={sid}
-        accountSid={accountSid}
         key={i}
         alt={message}
         srcUrl={`https://api.twilio.com${url}`}
-        from={from}
       />
     ));
   }

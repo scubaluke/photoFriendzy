@@ -19,8 +19,11 @@ export default async function downloadImage(
       method: 'GET',
       responseType: 'stream', // important
     });
+
+    const downloadUrl = response.data.responseUrl;
     const fileName = `${faker.word.adjective()}-${faker.word.noun()}.jpeg`;
-    res.status(200).json({ downloadUrl: response.data.responseUrl, fileName });
+
+    res.status(200).json({ downloadUrl, fileName });
   } catch (error) {
     res.status(500).json({ message: 'An error occurred, please try again.' });
   }

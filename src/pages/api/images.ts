@@ -27,15 +27,12 @@ export default async function images(
     });
 
     const images: Images = [];
-    for (const { sid, body: message, from, accountSid } of response) {
+    for (const { sid, body: message } of response) {
       const media = await client.messages(sid).media.list();
       media.forEach(({ uri }) =>
         images.push({
           url: uri.replace('.json', ''),
           message,
-          from,
-          sid,
-          accountSid,
         })
       );
     }

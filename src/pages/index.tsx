@@ -10,7 +10,7 @@ export default function Home() {
       </h3>
       <h3 className={styles.header}>
         Share your photos by texting them to{' '}
-        <a href='tel:+12516992323'>251 699 2323</a>
+        <a href='sms:+12516992323'>251 699 2323</a>
       </h3>
       <Photos />
     </main>

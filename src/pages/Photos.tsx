@@ -21,7 +21,7 @@ interface ImagesResponse {
 }
 
 export default function Photos() {
-  const limit = 100;
+  const limit = 10000;
   const { data, isValidating, error } = useSWR<
     ImagesResponse,
     AxiosError<ErrorResponse, unknown>
